@@ -1,8 +1,8 @@
 package functions;
 
-import java.io.Serializable;
+import java.io.*;
 
-public class LinkedListTabulatedFunction implements TabulatedFunction, Cloneable, Serializable {
+public class LinkedListTabulatedFunction implements TabulatedFunction, Serializable, Externalizable {
     private static final long serialVersionUID = 2L;  // версия для сериализации
 
     private class FunctionNode implements Serializable {
@@ -66,6 +66,14 @@ public class LinkedListTabulatedFunction implements TabulatedFunction, Cloneable
         }
     }
 
+    // конструктор без параметров для Externalizable (ДОБАВЛЕН)
+    public LinkedListTabulatedFunction() {
+        head = new FunctionNode();
+        head.setNext(head);
+        head.setPrev(head);
+        pointsCount = 0;
+    }
+
     // голова списка
     private FunctionNode head;
 
@@ -73,7 +81,6 @@ public class LinkedListTabulatedFunction implements TabulatedFunction, Cloneable
     private int pointsCount;
     private FunctionNode lastAccessedNode;  // последний доступный узел
     private int lastAccessedIndex;          // индекс последнего доступного узла
-
 
     public LinkedListTabulatedFunction(double leftX, double rightX, int pointsCount) {
         // проверка параметров
@@ -429,6 +436,37 @@ public class LinkedListTabulatedFunction implements TabulatedFunction, Cloneable
             return new LinkedListTabulatedFunction(pointsCopy);
         } catch (Exception e) {
             throw new CloneNotSupportedException("Не удалось клонировать: " + e.getMessage());
+        }
+    }
+
+    // методы для Externalizable
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeInt(pointsCount); // количество точек
+        // записываем все точки
+        FunctionNode current = head.getNext();
+        while (current != head) {
+            out.writeDouble(current.getPoint().getX());
+            out.writeDouble(current.getPoint().getY());
+            current = current.getNext();
+        }
+    }
+
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        // очищаем существующий список
+        head = new FunctionNode();
+        head.setNext(head);
+        head.setPrev(head);
+        pointsCount = 0;
+        int count = in.readInt();
+        // читаем и добавляем точки
+        for (int i = 0; i < count; i++) {
+            double x = in.readDouble();
+            double y = in.readDouble();
+            try {
+                addPoint(new FunctionPoint(x, y));
+            } catch (InappropriateFunctionPointException e) {
+                throw new IOException("ошибка при десериализации точки: " + e.getMessage());
+            }
         }
     }
 }

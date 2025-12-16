@@ -1,6 +1,6 @@
 import functions.*;
 import functions.basic.*;
-import functions.meta.*;
+
 import java.io.*;
 
 public class Main {
@@ -286,8 +286,7 @@ public class Main {
                     double original = tabExp.getFunctionValue(x);
                     double read = readExp.getFunctionValue(x);
                     double diff = Math.abs(original - read);
-                    System.out.printf("%.0f      %.6f      %.6f      %.10f%n",
-                            x, original, read, diff);
+                    System.out.println("x: " + x + ", " + original + "," + read + ", " + diff);
                 }
             }
 
@@ -322,5 +321,98 @@ public class Main {
             System.err.println("ошибка в каких то тестах " + e.getMessage());
             e.printStackTrace();
         }
+        // тесты Externalizable  для класса  LinkedListTabulatedFunction
+        System.out.println("тесты сериализации LinkedListTabulatedFunction (Externalizable)");
+        LinkedListTabulatedFunction original = new LinkedListTabulatedFunction(0, 3, new double[]{0, 1, 4, 9});
+        System.out.println("все точки фунции"); // попросили в  исправлении
+        printAllPoints(original); // используем готовый метод
+        try {
+            // ввыполняем  Externalizable
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            original.writeExternal(oos);
+            oos.flush();
+            oos.close();
+            System.out.println("функция cериализована " + baos.size() + " байт");
+
+            // десериализуем через Externalizable
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            LinkedListTabulatedFunction restored = new LinkedListTabulatedFunction();  // ← создаём пустой
+            restored.readExternal(ois);  // ← заполняем через readExternal
+            ois.close();
+
+            System.out.println("все точки восстановленной функции");
+            printAllPoints(restored);
+
+            // переделал проверку через эпсилон
+            final double EPSILON = 1e-10;
+            boolean f = true;
+            for (int i = 0; i < original.getPointsCount(); i++) {
+                double originalX = original.getPointX(i);
+                double originalY = original.getPointY(i);
+                double restY = restored.getFunctionValue(originalX);
+                if (Math.abs(originalY - restY) > EPSILON) {
+                    System.out.println("ошибка в точке x=" + originalX + " разница=" + Math.abs(originalY - restY));
+                    f = false;
+                }
+            }
+
+            if (f) {
+                System.out.println("функции одинаковы");
+            }
+            else {
+                System.out.println("функции различаются");
+            }
+
+        } catch (Exception e) {
+            System.out.println("ошибка сериализации: " + e);
+        }
+
+
+
+        // 2) тест Serializable для ArrayTabulatedFunction
+        System.out.println("тест сериализации ArrayTabulatedFunction");
+        ArrayTabulatedFunction arrayOriginal = new ArrayTabulatedFunction(-2, 2, new double[]{3, 1, 0, 1, 4});
+        System.out.println("все точки  функции");
+        printAllPoints(arrayOriginal);//также выводим через метод
+        try {
+            // сериализуем
+            ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
+            ObjectOutputStream oos2 = new ObjectOutputStream(baos2);
+            oos2.writeObject(arrayOriginal);
+            oos2.close();
+            System.out.println("функция сериализована (" + baos2.size() + " байт)");
+
+            // десериализуем
+            ByteArrayInputStream bais2 = new ByteArrayInputStream(baos2.toByteArray());
+            ObjectInputStream ois2 = new ObjectInputStream(bais2);
+            ArrayTabulatedFunction arrayRestored = (ArrayTabulatedFunction) ois2.readObject();
+            ois2.close();
+            System.out.println("все точки восстановленной функции");
+            printAllPoints(arrayRestored);
+            final double EPSILON = 1e-10;
+            boolean f = true;
+
+            for (int i = 0; i < arrayOriginal.getPointsCount(); i++) {
+                double origX = arrayOriginal.getPointX(i);
+                double origY = arrayOriginal.getPointY(i);
+                double restY = arrayRestored.getFunctionValue(origX);
+
+                if (Math.abs(origY - restY) > EPSILON) {
+                    System.out.println("ошибка в точке x=" + origX);
+                    f = false;
+                }
+            }
+            if (f) {
+                System.out.println("функции одинаковы");
+            } else {
+                System.out.println("функции различаются");
+            }
+
+        } catch (Exception e) {
+            System.out.println("ошибка сериализации" + e);
+        }
+        }
+    // изменения для проверки Externalizable
     }
-}

@@ -1,6 +1,6 @@
 package functions;
-
-public interface TabulatedFunction extends Function {
+//   Cloneable ДОБАВИЛ СЮДА
+public interface TabulatedFunction extends Function,  Cloneable {
     int getPointsCount();
     FunctionPoint getPoint(int index);
     double getPointX(int index);

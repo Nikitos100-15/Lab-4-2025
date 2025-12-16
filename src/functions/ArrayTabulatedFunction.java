@@ -2,7 +2,7 @@ package functions;
 
 import java.io.Serializable;
 
-public class ArrayTabulatedFunction implements TabulatedFunction, Cloneable, Serializable {
+public class ArrayTabulatedFunction implements TabulatedFunction, Serializable {
     private static final long serialVersionUID = 1L;  // версия для сериализации
     // создаем поле в виде массива
     private FunctionPoint[] points;
