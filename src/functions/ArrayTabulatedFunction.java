@@ -262,17 +262,14 @@ public class ArrayTabulatedFunction implements TabulatedFunction, Serializable {
         points[pos] = new FunctionPoint(point);
         pointsCount++;
     }
-    // был дописан
     public Object clone() throws CloneNotSupportedException {
-        try {
-            // создаем ту же функцию с теми же строчками
-            FunctionPoint[] pointsCopy = new FunctionPoint[pointsCount];
-            for (int i = 0; i < pointsCount; i++) {
-                pointsCopy[i] = new FunctionPoint(points[i].getX(), points[i].getY());
-            }
-            return new ArrayTabulatedFunction(pointsCopy);
-        } catch (Exception e) {
-            throw new CloneNotSupportedException("ошибка, не удалось клонировать: " + e.getMessage());
+        // создаём копии всех точек
+        FunctionPoint[] pointsCopy = new FunctionPoint[pointsCount];
+        for (int i = 0; i < pointsCount; i++) {
+            pointsCopy[i] = new FunctionPoint(points[i].getX(), points[i].getY());
         }
+        // создаём новую функцию
+        return new ArrayTabulatedFunction(pointsCopy);
     }
+
 }

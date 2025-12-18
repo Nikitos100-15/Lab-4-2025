@@ -427,16 +427,15 @@ public class LinkedListTabulatedFunction implements TabulatedFunction, Serializa
         return nodeToDelete;
     }
     public Object clone() throws CloneNotSupportedException {
-        try {
-            // создаем копию всех точек
-            FunctionPoint[] pointsCopy = new FunctionPoint[pointsCount];
-            for (int i = 0; i < pointsCount; i++) {
-                pointsCopy[i] = new FunctionPoint(getPointX(i), getPointY(i));
-            }
-            return new LinkedListTabulatedFunction(pointsCopy);
-        } catch (Exception e) {
-            throw new CloneNotSupportedException("Не удалось клонировать: " + e.getMessage());
+        // создаём массив для копий точек
+        FunctionPoint[] pointsCopy = new FunctionPoint[pointsCount];
+        // копируем все точки из списка
+        FunctionNode massiv = head.getNext();
+        for (int i = 0; i < pointsCount; i++) {
+            pointsCopy[i] = new FunctionPoint(massiv.getPoint().getX(), massiv.getPoint().getY());massiv = massiv.getNext();
         }
+        // создаём новую функцию через конструктор с массивом
+        return new LinkedListTabulatedFunction(pointsCopy);
     }
 
     // методы для Externalizable

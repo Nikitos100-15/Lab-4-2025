@@ -81,10 +81,9 @@ public class TabulatedFunctions {
             // поток  закрывается благодаря try-with-resources
         }
 
-        public static void writeTabulatedFunction(TabulatedFunction function, Writer out)
-                throws IOException {
+        public static void writeTabulatedFunction(TabulatedFunction function, Writer out) throws IOException {
             try (BufferedWriter bw = new BufferedWriter(out)) {
-                // 1. Записываем количество точек на отдельной строке
+                // записываем количество точек на отдельной строке
                 int pointsCount = function.getPointsCount();
                 bw.write(String.valueOf(pointsCount));
                 bw.newLine();  // переходим на новую строку
@@ -97,39 +96,40 @@ public class TabulatedFunctions {
             }
         }
 
-        public static TabulatedFunction readTabulatedFunction(Reader in)
-                throws IOException {
-
-            try (BufferedReader br = new BufferedReader(in)) {
-                // читаем первую строку - количество точек
-                String line = br.readLine();
-                if (line == null) {
-                    throw new IOException("Нет данных в потоке");
-                }
-                int pointsCount = Integer.parseInt(line.trim());
-
-                // создаем массивы для координат
-                double[] xValues = new double[pointsCount];
-                double[] yValues = new double[pointsCount];
-
-                // читаем строки с координатами точек
-                for (int i = 0; i < pointsCount; i++) {
-                    line = br.readLine();
-                    if (line == null) {
-                        throw new IOException("Недостаточно данных: ожидалось " + pointsCount + " точек, получено " + i);
-                    }
-                    StringTokenizer tokenizer = new StringTokenizer(line);
-                    if (tokenizer.countTokens() < 2) {
-                        throw new IOException("Неверный формат строки: " + line);
-                    }
-
-                    // парсим координаты
-                    xValues[i] = Double.parseDouble(tokenizer.nextToken());
-                    yValues[i] = Double.parseDouble(tokenizer.nextToken());
-                }
-
-                // создаем и возвращаем функцию
-                return new ArrayTabulatedFunction(xValues[0], xValues[pointsCount-1], yValues);
+    public static TabulatedFunction readTabulatedFunction(Reader in) throws IOException {
+        try (BufferedReader br = new BufferedReader(in)) {
+            // читаем первую строку - количество точек
+            String line = br.readLine();
+            if (line == null) {
+                throw new IOException("Нет данных в потоке");
             }
+            int pointsCount = Integer.parseInt(line.trim());
+
+            // создаем массивы для координат
+            double[] x_values = new double[pointsCount];
+            double[] y_values = new double[pointsCount];
+
+            // читаем строки с координатами точек
+            for (int i = 0; i < pointsCount; i++) {
+                line = br.readLine();
+                if (line == null) {
+                    throw new IOException("Недостаточно данных: ожидалось " + pointsCount + " точек, получено " + i);
+                }
+                StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(line));
+                tokenizer.parseNumbers(); // настраиваем для чтения чисел
+                // читаем первое число (x)
+                if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
+                    throw new IOException("Ожидалось число x в строке: " + line);
+                }
+                x_values[i] = tokenizer.nval;
+                // читаем второе число (y)
+                if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
+                    throw new IOException("Ожидалось число y в строке: " + line);
+                }
+                y_values[i] = tokenizer.nval;
+            }
+            // создаем и возвращаем функцию
+            return new ArrayTabulatedFunction(x_values[0], x_values[pointsCount-1], y_values);
         }
+    }
     }

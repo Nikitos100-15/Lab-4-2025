@@ -321,31 +321,27 @@ public class Main {
             System.err.println("ошибка в каких то тестах " + e.getMessage());
             e.printStackTrace();
         }
-        // тесты Externalizable  для класса  LinkedListTabulatedFunction
+        // тесты Externalizable для класса LinkedListTabulatedFunction
         System.out.println("тесты сериализации LinkedListTabulatedFunction (Externalizable)");
-        LinkedListTabulatedFunction original = new LinkedListTabulatedFunction(0, 3, new double[]{0, 1, 4, 9});
-        System.out.println("все точки фунции"); // попросили в  исправлении
-        printAllPoints(original); // используем готовый метод
+        LinkedListTabulatedFunction original = new LinkedListTabulatedFunction(0, 3, new double[]{1, 3, 5, 7, 9});
+        System.out.println("все точки функции");
+        printAllPoints(original);
         try {
-            // ввыполняем  Externalizable
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            original.writeExternal(oos);
-            oos.flush();
-            oos.close();
-            System.out.println("функция cериализована " + baos.size() + " байт");
+            ObjectOutputStream o = new ObjectOutputStream(baos);
+            o.writeObject(original);
+            o.flush();
+            o.close();
+            System.out.println("функция сериализована " + baos.size() + " байт");
 
-            // десериализуем через Externalizable
             ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
             ObjectInputStream ois = new ObjectInputStream(bais);
-            LinkedListTabulatedFunction restored = new LinkedListTabulatedFunction();  // ← создаём пустой
-            restored.readExternal(ois);  // ← заполняем через readExternal
+            LinkedListTabulatedFunction restored = (LinkedListTabulatedFunction) ois.readObject();
             ois.close();
 
             System.out.println("все точки восстановленной функции");
             printAllPoints(restored);
 
-            // переделал проверку через эпсилон
             final double EPSILON = 1e-10;
             boolean f = true;
             for (int i = 0; i < original.getPointsCount(); i++) {
@@ -369,26 +365,25 @@ public class Main {
             System.out.println("ошибка сериализации: " + e);
         }
 
-
-
         // 2) тест Serializable для ArrayTabulatedFunction
         System.out.println("тест сериализации ArrayTabulatedFunction");
-        ArrayTabulatedFunction arrayOriginal = new ArrayTabulatedFunction(-2, 2, new double[]{3, 1, 0, 1, 4});
-        System.out.println("все точки  функции");
-        printAllPoints(arrayOriginal);//также выводим через метод
+        ArrayTabulatedFunction arrayOriginal = new ArrayTabulatedFunction(-2, 2, new double[]{1, 3, 5, 7, 9});
+        System.out.println("все точки функции");
+        printAllPoints(arrayOriginal);
         try {
             // сериализуем
             ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
             ObjectOutputStream oos2 = new ObjectOutputStream(baos2);
-            oos2.writeObject(arrayOriginal);
+            oos2.writeObject(arrayOriginal);  // ← ДОБАВИТЬ ЭТУ СТРОКУ!
+            oos2.flush();
             oos2.close();
             System.out.println("функция сериализована (" + baos2.size() + " байт)");
 
             // десериализуем
             ByteArrayInputStream bais2 = new ByteArrayInputStream(baos2.toByteArray());
-            ObjectInputStream ois2 = new ObjectInputStream(bais2);
-            ArrayTabulatedFunction arrayRestored = (ArrayTabulatedFunction) ois2.readObject();
-            ois2.close();
+            ObjectInputStream o2 = new ObjectInputStream(bais2);
+            ArrayTabulatedFunction arrayRestored = (ArrayTabulatedFunction) o2.readObject();
+            o2.close();
             System.out.println("все точки восстановленной функции");
             printAllPoints(arrayRestored);
             final double EPSILON = 1e-10;
@@ -413,6 +408,6 @@ public class Main {
         } catch (Exception e) {
             System.out.println("ошибка сериализации" + e);
         }
-        }
-    // изменения для проверки Externalizable
+    }
+
     }
