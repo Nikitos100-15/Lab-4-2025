@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fddf4e45-4ce2-4c22-a78f-1f285f26be33" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/ArrayTabulatedFunction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/Function.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/FunctionPoint.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/FunctionPointIndexOutOfBoundsException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/Functions.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/InappropriateFunctionPointException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/LinkedListTabulatedFunction$FunctionNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/LinkedListTabulatedFunction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/TabulatedFunction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/TabulatedFunctions.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/basic/Cos.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/basic/Exp.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/basic/Log.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/basic/Sin.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/basic/Tan.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/basic/TrigonometricFunction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/meta/Composition.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/meta/Mult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/meta/Power.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/meta/Scale.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/meta/Shift.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/meta/Sum.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Lab-4-2025/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.bin" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="36oCZw5RFJSx9PXigmfHrKk8gSf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;lab4-final-submission&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Nikitos100-5/IdeaProjects/Lab-4-2025/src&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Nikitos100-5\IdeaProjects\Lab-4-2025\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nikitos100-5\IdeaProjects\lab--4\Lab-4-2025\src" />
+      <recent name="C:\Users\Nikitos100-5\IdeaProjects\lab--4\Lab-4-2025" />
+      <recent name="C:\Users\Nikitos100-5\IdeaProjects\lab--4" />
+      <recent name="C:\Users\Nikitos100-5\IdeaProjects\lab--4\Lab-4-2025\Lab-4-2025" />
+      <recent name="C:\Users\Nikitos100-5\IdeaProjects\lab--4\out\production\Lab-4-2025" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fddf4e45-4ce2-4c22-a78f-1f285f26be33" name="Changes" comment="" />
+      <created>1765663597401</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765663597401</updated>
+    </task>
+    <servers />
+  </component>
+</project>
